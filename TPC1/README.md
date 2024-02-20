@@ -1,1 +1,1 @@
-Na realização deste trabalho foram criadas duas classes : a classe Localização que contem rua, cod_rua( código de rua), freguesia e local e planta que contem num_registo ( número de registo), nome_cient ( nome científico), entre outros. A planta contém tambem o Data Proprety temLocalização - id da rua e a localização contém também a Data Proprety temPlanta - id da planta.
+
