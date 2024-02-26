@@ -1,0 +1,3 @@
+O dataset musica apresenta 3 classes : alunos, curso e instrumento. Após identificar as classes, foram identificadas as object properties: CursotemInst referente ao instrumento que cada curso tem, temCurso referente ao curso que cada aluno tem e o temInstrumento referente ao instrumento que cada aluno tem. 
+Foram também identificadas as Data properties que foram organizadas por alunos, curso e instrumento. 
+Por fim, o documento criado foi passado para GraphDB.

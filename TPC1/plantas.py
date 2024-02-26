@@ -28,7 +28,6 @@ for planta in bd:
                 
 
 <http://rpcw.di.uminho.pt/2024/plantas#:r_{planta["Código de rua"]} rdf:type owl:NamedIndividual ;
-            :temPlanta :p_{planta["Id"]} ;
             :cod_rua "{planta["Código de rua"]}"^^xsd:int ;
             :freguesia "{planta["Freguesia"]}" ;
             :local "{planta["Local"]}" ;
