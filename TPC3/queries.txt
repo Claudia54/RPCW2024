@@ -1,0 +1,49 @@
+------Queries------ 
+
+1- Quais as cidades de um determinado distrito?
+
+PREFIX : <http://rpcw.di.uminho.pt/2024/untitled-ontology-16/>
+
+select ?cidade where { 
+	?s :distrito "Braga" .
+    ?s :nome ?cidade
+} 
+
+
+2- Distribuição de cidades por distrito?
+
+PREFIX : <http://rpcw.di.uminho.pt/2024/untitled-ontology-16/>
+
+select ?distrito (COUNT(?s) as ?numero) where { 
+    ?s :distrito ?distrito .
+}
+group by ?distrito
+
+
+
+3- Quantas cidades se podem atingir a partir de Braga?
+
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/untitled-ontology-16/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select distint ?nomes where {
+  	?cidades :distrito "Braga" .
+    ?destino (^:destino/:origem)* ?cidades .
+  	?destino :nome ?nomes .
+}
+
+
+
+4- Quais as cidades com população acima de um determinado valor?
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/untitled-ontology-16/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?nome where { 
+    ?c :nome ?nome .
+    ?c :populacao ?p .
+    FILTER (?p > 10000)
+}
