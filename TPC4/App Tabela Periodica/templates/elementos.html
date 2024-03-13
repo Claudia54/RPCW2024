@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <meta charset="utf-8"/>
+        <title> Tabela Periódica: Elementos</title>
+        <link rel="icon" href="{{ url_for('static', filename="faveicon.png") }}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename="styles/w3.css") }}"/>
+    </header>
+    <body>
+        <div class="w3-card-4">
+            <header class="w3-container w3-purple">
+                <h1> Tabela Periódica - Elementos</h1>
+            </header>
+
+            <div class="w3-container">
+                <table class="w3-table-all">
+                    <tr>
+                        <th>Número Atómico</th>
+                        <th>Símbolo</th>
+                        <th>Nome</th>
+                        <th>Grupo</th>
+                    </tr>
+
+                    {% for entry in data.elements %}
+                    <tr>
+                        <td>{{entry.n.value}}</td>
+                        <td>{{entry.simb.value}}</td>
+                        <td><a href="/elementos/{{ entry.n.value }}">{{entry.nome.value}}</a></td>
+                        <td><a href="/grupos/{{ entry.grupo.value }}">{{entry.grupo_nome.value}}</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <footer class="w3-container w3-purple">
+                <h5> Gerado by RPCW2024 in {{ data.date }}</h5>
+            </footer>
+        </div>
+    </body>
+</html>
