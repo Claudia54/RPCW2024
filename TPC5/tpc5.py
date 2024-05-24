@@ -1,9 +1,8 @@
 import json, requests
 
-# Define the DBpedia SPARQL endpoint
+
 sparql_endpoint = "http://dbpedia.org/sparql"
 
-# Define the SPARQL query
 sparql_query = """
 PREFIX schema: <http://schema.org/>
 SELECT DISTINCT ?movie  ?name ?title ?director ?duration ?writer ?composer WHERE {
@@ -17,18 +16,18 @@ FILTER (LANG(?name) = 'en') .
 } LIMIT 1000
 """
 
-# Define the headers
+
 headers = {
     "Accept": "application/sparql-results+json"
 }
 
-# Define the parameters
+
 params = {
     "query": sparql_query,
     "format": "json"
 }
 
-# Send the SPARQL query using requests
+
 response = requests.get(sparql_endpoint, params=params, headers=headers)
 
 dic_movie = {}

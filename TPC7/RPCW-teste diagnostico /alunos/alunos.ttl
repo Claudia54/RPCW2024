@@ -1,0 +1,89 @@
+@prefix : <http://rpcw.di.uminho.pt/2024/teste/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://rpcw.di.uminho.pt/2024/teste/> .
+
+<http://rpcw.di.uminho.pt/2024/teste> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://rpcw.di.uminho.pt/2024/teste#exame
+:exame rdf:type owl:ObjectProperty ;
+       rdfs:domain :Aluno ;
+       rdfs:range :Exame .
+
+
+###  http://rpcw.di.uminho.pt/2024/teste#tpc
+:tpc rdf:type owl:ObjectProperty ;
+     rdfs:domain :Aluno ;
+     rdfs:range :TPC .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://rpcw.di.uminho.pt/2024/teste#curso
+:curso rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Aluno ;
+       rdfs:range xsd:string .
+
+
+###  http://rpcw.di.uminho.pt/2024/teste#idAluno
+:idAluno rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Aluno ;
+         rdfs:range xsd:string .
+
+
+###  http://rpcw.di.uminho.pt/2024/teste#nome
+:nome rdf:type owl:DatatypeProperty ;
+      rdfs:range xsd:string .
+
+
+###  http://rpcw.di.uminho.pt/2024/teste#nota
+:nota rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Exame ,
+                  :TPC ;
+      rdfs:range xsd:integer .
+
+
+###  http://rpcw.di.uminho.pt/2024/teste#projeto
+:projeto rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Aluno ;
+         rdfs:range xsd:integer .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://rpcw.di.uminho.pt/2024/teste#Aluno
+:Aluno rdf:type owl:Class .
+
+
+###  http://rpcw.di.uminho.pt/2024/teste#Exame
+:Exame rdf:type owl:Class .
+
+
+###  http://rpcw.di.uminho.pt/2024/teste#TPC
+:TPC rdf:type owl:Class .
+
+
+###  http://rpcw.di.uminho.pt/2024/teste#Especial
+:Especial rdf:type owl:Class ;
+          rdfs:subClassOf :Exame .
+
+
+###  http://rpcw.di.uminho.pt/2024/teste#Normal
+:Normal rdf:type owl:Class ;
+        rdfs:subClassOf :Exame .
+
+
+###  http://rpcw.di.uminho.pt/2024/teste#Recurso
+:Recurso rdf:type owl:Class ;
+         rdfs:subClassOf :Exame .

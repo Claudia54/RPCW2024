@@ -1,0 +1,210 @@
+
+PREFIX :  <http://rpcw.di.uminho.pt/2024/untitled-ontology-28/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?aluno
+WHERE {
+  ?aluno a :Aluno ;
+         :cursos "LCC" .
+}
+
+---------
+
+PREFIX :  <http://rpcw.di.uminho.pt/2024/untitled-ontology-28/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?idAluno ?nome ?curso ?nota
+WHERE {
+  ?aluno a :Aluno .
+  ?aluno :Nome ?nome .
+  ?aluno :Id ?idAluno .
+  ?aluno :cursos ?curso .
+  ?exame rdf:type :EpocaNormal .
+  ?exame :NotaExame ?nota .
+  ?aluno :temExame ?exame .
+  FILTER (?nota > 9.5)
+}
+ORDER BY ?nome
+
+
+
+-------------
+
+
+PREFIX :  <http://rpcw.di.uminho.pt/2024/untitled-ontology-28/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+PREFIX ont: <http://rpcw.di.uminho.pt/2024/untitled-ontology-28/>
+SELECT ?projetoNota (COUNT(?aluno) AS ?numeroDeAlunos)
+WHERE {
+  ?aluno a :Aluno ;
+         :temProjeto ?projetoURI .
+  ?projetoURI :ProjetoNota ?projetoNota .
+}
+GROUP BY ?projetoNota
+ORDER BY ?projetoNota
+
+-----------------
+
+SELECT ?idAluno ?nome ?curso (SUM(?notaTPC) AS ?total)
+WHERE {
+  ?aluno a :Aluno ;
+         :Id ?idAluno ;
+         :Nome ?nome ;
+         :cursos ?curso ;
+         :temTPC ?tpc .
+  ?tpc a :TPC ;
+  		 :TPCNota ?notaTPC.
+}
+GROUP BY ?idAluno ?nome ?curso
+ORDER BY DESC(?total)
+
+
+--------------
+
+
+SELECT ?curso (COUNT(?aluno) AS ?numAlunos)
+WHERE {
+  ?aluno a :Aluno ;
+         :cursos ?curso .
+}
+GROUP BY ?curso
+ORDER BY ?curso
+
+-----------------QUERIES 2 PARTEE--------
+
+
+
+SELECT ?idAluno ?nome ?curso
+WHERE {
+  ?aluno a :Aluno ;
+          :Id ?idAluno ;
+          :Nome ?nome ;
+          :cursos ?curso .
+}
+ORDER BY ?nome
+
+
+
+
+--------------
+
+PREFIX :  <http://rpcw.di.uminho.pt/2024/untitled-ontology-28/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+PREFIX ont: <http://rpcw.di.uminho.pt/2024/untitled-ontology-28/>
+SELECT ?Nome ?cursos ?notaNormal ?notaEspecial ?notaRecurso ?notaProjeto ?TPCTipo ?notaTPC
+WHERE {
+  ?aluno a ont:Aluno ;
+         ont:Id "A29920" ;  # Substitua "A29920" pelo idAluno desejado
+         ont:Nome ?Nome ;
+         ont:cursos ?cursos .
+  
+  OPTIONAL {
+    ?exameNormal a ont:EpocaNormal ;
+                 ont:NotaExame ?notaNormal .
+    ?aluno ont:temExame ?exameNormal .
+  }
+  
+  OPTIONAL {
+    ?exameEspecial a ont:EpocaEspecial ;
+                   ont:NotaExame ?notaEspecial .
+    ?aluno ont:temExame ?exameEspecial .
+  }
+  
+  OPTIONAL {
+    ?exameRecurso a ont:EpocaRecurso ;
+                  ont:NotaExame ?notaRecurso .
+    ?aluno ont:temExame ?exameRecurso .
+  }
+  
+  OPTIONAL {
+    ?projeto a ont:Projeto ;
+             ont:ProjetoNota ?notaProjeto .
+    ?aluno ont:temProjeto ?projeto .
+  }
+  
+  ?tpc a ont:TPC ;
+       ont:TPCtipo ?TPCTipo ;
+       ont:TPCNota ?notaTPC .
+  ?aluno ont:temTPC ?tpc .
+}
+
+
+
+-------------------------------
+
+PREFIX ont: <http://rpcw.di.uminho.pt/2024/untitled-ontology-28/>
+SELECT ?idAluno ?nome ?curso
+WHERE {
+  ?aluno a ont:Aluno ;
+         ont:Id ?idAluno ;
+         ont:Nome ?nome ;
+         ont:cursos ?curso .
+  FILTER (?curso = "MML")  # Substitua "Curso_X" pelo nome do curso desejado
+}
+ORDER BY ?nome
+
+
+-----------------------------
+
+REFIX ont: <http://rpcw.di.uminho.pt/2024/untitled-ontology-28/>
+SELECT ?idAluno ?nome ?curso (COUNT(?tpc) AS ?numTPCs)
+WHERE {
+  ?aluno a ont:Aluno ;
+         ont:Id ?idAluno ;
+         ont:Nome ?nome ;
+         ont:cursos ?curso .
+  OPTIONAL { ?aluno ont:temTPC ?tpc }
+}
+GROUP BY ?idAluno ?nome ?curso
+ORDER BY ?nome
+
+
+------------
+SELECT ?curso (COUNT(?aluno) AS ?numAlunos)
+WHERE {
+  ?aluno a :Aluno ;
+         :cursos ?curso .
+}
+GROUP BY ?curso
+ORDER BY ?curso
+
+
+----------------
+
+SELECT ?notaProjeto (COUNT(?aluno) AS ?totalAlunos)
+WHERE {
+  ?aluno a :Aluno ;
+         :temProjeto ?projeto .
+  ?projeto :ProjetoNota ?notaProjeto .
+}
+GROUP BY ?notaProjeto
+ORDER BY ?notaProjeto
+
+--------------------------
+SELECT ?idAluno ?nome ?curso ?recurso
+WHERE {
+  ?aluno a :Aluno ;
+         :temExame ?recursoExame ;
+         :Nome ?nome ;
+         :cursos ?curso ;
+         :Id ?idAluno .
+  ?recursoExame a :EpocaRecurso .
+}
+ORDER BY ?nome
+
+
+--------------
+ PREFIX ont: <http://rpcw.di.uminho.pt/2024/untitled-ontology-28/>
+SELECT ?idAluno ?nome ?curso ?recurso
+WHERE {
+  ?aluno a :Aluno ;
+         :temExame ?exame .
+  ?exame a :EpocaRecurso ;
+         :NotaExame ?recurso .
+  ?aluno :Nome ?nome ;
+         :cursos ?curso ;
+         :Id ?idAluno .
+}
+ORDER BY ?nome

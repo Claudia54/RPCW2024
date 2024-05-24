@@ -1,0 +1,99 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/untitled-ontology-45/> 
+
+PREFIX ns1: <http://rpcw.di.uminho.pt/2024/mapa/> 
+
+SELECT DISTINCT ?nomeCidade
+WHERE {
+  ?cidade rdf:type ns1:Cidade ;
+          ns1:nomeCidade ?nomeCidade .
+}
+ORDER BY ?nomeCidade
+
+
+-------------
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/untitled-ontology-45/> 
+
+PREFIX ns1: <http://rpcw.di.uminho.pt/2024/mapa/> 
+
+SELECT ?distrito (COUNT(?cidade) AS ?numCidades)
+WHERE {
+  ?cidade a ns1:Cidade ;
+          ns1:temDistrito ?distrito .
+}
+GROUP BY ?distrito
+ORDER BY ?distrito
+
+----------------
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/untitled-ontology-45/> 
+PREFIX ns1: <http://rpcw.di.uminho.pt/2024/mapa/> 
+
+SELECT ?outraCidade
+WHERE {
+  {
+    ?ligacao a ns1:Ligação ;
+             ns1:origem ns1:c30 ;
+             ns1:destino ?outraCidade .
+  }
+  UNION
+  {
+    ?ligacao a ns1:Ligação ;
+             ns1:destino ns1:c30 ;
+             ns1:origem ?outraCidade .
+  }
+}
+-----------------
+
+PREFIX : <http://rpcw.di.uminho.pt/2024/untitled-ontology-45/> 
+PREFIX ns1: <http://rpcw.di.uminho.pt/2024/mapa/> 
+
+SELECT ?outraCidade
+WHERE {
+  {
+    ?ligacao a ns1:Ligação ;
+             ns1:origem ?braga .
+    ?braga ns1:nomeCidade "Braga" .
+    ?ligacao ns1:destino ?outraCidade .
+  }
+  UNION
+  {
+    ?ligacao a ns1:Ligação ;
+             ns1:destino ?braga .
+    ?braga ns1:nomeCidade "Braga" .
+    ?ligacao ns1:origem ?outraCidade .
+  }
+}
+
+------------------
+
+
+SELECT DISTINCT ?desNome
+WHERE {
+  ?lig a ns1:Ligação.
+  ?lig ns1:origem ?ori.
+  ?ori ns1:nomeCidade "Braga".
+  ?lig (ns1:destino/^ns1:origem)* ?ligações.
+  ?ligações ns1:destino/ns1:nomeCidade ?desNome.
+}
+ORDER BY ?desNome
+
+--------------------
+
+
+CONSTRUCT {
+  :ligacao a :Ligação;
+            :origem ?ori;
+            :destino ?des.
+}
+WHERE {
+  ?lig a ns1:Ligação.
+  ?lig ns1:origem ?ori.
+  ?ori ns1:nomeCidade "Braga".
+  ?lig (ns1:destino/^ns1:origem)* ?ligações.
+  ?ligações ns1:destino/ns1:nomeCidade ?desNome.
+}
+
+------------------------
