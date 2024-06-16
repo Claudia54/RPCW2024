@@ -1,2 +1,0 @@
-#topologia
-#fotos graphdb
