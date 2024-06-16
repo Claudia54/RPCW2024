@@ -1,12 +1,4 @@
-# RPCW2024
-# Introdução
-Repositorios para os TPCs da UC.
+# Projeto de RPCW
+- **Nome:** Cláudia Peixoto Silva 
+- **ID:** 51497
 
-## Informações Pessoais
-
-- **Nome:** José dos Santos Mendes
-- **ID:** 53967
-
-## Foto
-
-!(foto.jpeg)
